@@ -1,0 +1,46 @@
+directives:
+- add_model:
+    name: iiwa
+    file: package://manipulation/slow_iiwa7.sdf
+    default_joint_positions:
+        iiwa_joint_1: [0]
+        iiwa_joint_2: [0.1]
+        iiwa_joint_3: [0]
+        iiwa_joint_4: [-1.2]
+        iiwa_joint_5: [0]
+        iiwa_joint_6: [ 1.6]
+        iiwa_joint_7: [0]
+- add_weld:
+    parent: world
+    child: iiwa::iiwa_link_0
+    
+    
+- add_frame:
+    name: camera0_origin
+    X_PF:
+        base_frame: world
+        rotation: !Rpy { deg: [-135, 0, 90]}
+        translation: [0.0, -0.0, 1.4]
+- add_model:
+    name: camera0
+    file: package://manipulation/camera_box.sdf
+
+- add_weld:
+    parent: camera0_origin
+    child: camera0::base
+    
+    
+- add_frame:
+    name: bin0_origin
+    X_PF:
+      base_frame: iiwa_link_7
+      rotation: !Rpy { deg: [90.0, 0.0, 0.0 ]}
+      translation: [0.0, 0.02625, 0.12]
+
+- add_model:
+    name: bin0
+    file: package://manipulation/bin_small.sdf
+
+- add_weld:
+    parent: bin0_origin
+    child: bin0::bin_base
